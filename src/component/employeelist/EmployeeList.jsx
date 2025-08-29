@@ -1,73 +1,59 @@
 import React, { useState, useEffect } from "react";
 import EMListstyle from "../employeelist/EmployeeList.module.css";
 import { Link } from "react-router-dom";
+import { GetEmployee, DeleteEmployee } from "../../REdux/Action/EmployeeAction.js";
+import { useDispatch, useSelector } from "react-redux";
+
 function EmployeeList() {
-  const [GetEmData, SetEmData] = useState();
   const [Search, SetSearch] = useState("");
   const [depSearch, SetdepSearch] = useState("");
-  const data = async () => {
-    try {
-      const response = await fetch(
-        "https://68afc3ce3b8db1ae9c018aca.mockapi.io/employers"
-      );
-      const data = await response.json();
-      SetEmData(data);
-    } catch (error) {
-      SetEmData(error);
-    }
-  };
+
+  const dispatch = useDispatch();
+  const { employee } = useSelector((state) => state?.employee);
 
   useEffect(() => {
-    data();
-  }, []);
+    dispatch(GetEmployee());
+  }, [dispatch]);
 
   const HandleDelete = async (id) => {
-    try {
-      const response = await fetch(
-        `https://68afc3ce3b8db1ae9c018aca.mockapi.io/employers/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (!response.ok) {
-        alert("Failed to delete");
-      }
-
-      SetEmData((prev) => prev.filter((em) => em.id != id));
-    } catch (error) {
-      alert(error);
-    }
+    await dispatch(DeleteEmployee(id));
   };
-
+  console.log(employee);
   const HandleSearch = () => {};
-  const filerdata = GetEmData?.filter((datas) => {
-    const matchesSearch = Search
-      ? datas?.name?.toLowerCase().includes(Search.toLowerCase())
-      : true;
 
-    const matchesDept =
-      depSearch === "alldepartment"
-        ? true
-        : datas?.department?.toLowerCase().includes(depSearch.toLowerCase());
+  const filerdata = Array.isArray(employee)
+    ? employee.filter((datas) => {
+        const matchesSearch = Search
+          ? datas?.name?.toLowerCase().includes(Search.toLowerCase())
+          : true;
 
-    return matchesSearch && matchesDept;
-  });
+        const matchesDept =
+          depSearch === "alldepartment"
+            ? true
+            : datas?.department
+                ?.toLowerCase()
+                .includes(depSearch.toLowerCase());
+
+        return matchesSearch && matchesDept;
+      })
+    : [];
 
   return (
     <>
-      <h3 style={{textAlign:"center"}}>EmployeeList</h3>
+      <h3 style={{ textAlign: "center" }}>EmployeeList</h3>
       <div className={EMListstyle.head}>
         <Link to="addemployer">Add Employer</Link>
 
         <div>
-        <div onClick={HandleSearch}>
-          <input
-            onChange={(e) => SetSearch(e.target.value)}
-            value={Search}
-            type="search"
-            placeholder="Search name"
-          />
-          Search</div>
+          <div onClick={HandleSearch} style={{backgroundColor:"aliceblue"}}>
+            <input
+              onChange={(e) => SetSearch(e.target.value)}
+              value={Search}
+              type="search"
+              placeholder="Search name"
+            />
+            🔍
+          </div>
         </div>
         <div>
           <select

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import EeditStyle from "../Edit/EmployeeEdit.module.css";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { UpdateEmployee } from "../../REdux/Action/EmployeeAction";
 
 function EmployeeEdit() {
   const { id } = useParams();
@@ -13,6 +15,8 @@ function EmployeeEdit() {
     status: "",
   });
   const [Loading, SetLoading] = useState(true);
+  const dispatch = useDispatch();
+
   const HandleChange = (e) => {
     SetEmployee({
       ...employee,
@@ -21,31 +25,15 @@ function EmployeeEdit() {
   };
   const HandleClick = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch(
-        `https://68afc3ce3b8db1ae9c018aca.mockapi.io/employers/${id}`,
-        {
-          method: "PUT",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(employee),
-        }
-      );
-      if (!response.ok) {
-        alert("update issue");
-      } else {
-        alert("udate successfully!");
-        SetEmployee({
-          role:'',
-          name:'',
-          status:'',
-          department:"",
-        })
-      }
-    } catch (error) {
-      alert(error);
-    }
+    await dispatch(UpdateEmployee(employee, id));
+    SetEmployee({
+      role: "",
+      name: "",
+      status: "",
+      department: "",
+    });
   };
-  console.log(employee);
+
   return (
     <>
       <h2 style={{ textAlign: "center" }}>EmployeeEdit</h2>

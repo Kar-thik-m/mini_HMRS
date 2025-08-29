@@ -30,6 +30,11 @@ input{
   padding:4px;
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: rgb(144, 150, 155);
+  
+}
+input:focus{
+  outline: none;
+  border-color: #131a22;
 }
 select{
    border: none;
@@ -77,3 +82,7 @@ background-color: rgb(224, 150, 150);
   text-decoration: none;
     color: rgb(86, 118, 146);
 }
+
+
+
+

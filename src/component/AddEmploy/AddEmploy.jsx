@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import AddStyle from "../AddEmploy/Addemploy.module.css";
 import { validateEmployee } from "../valitaion";
+import { useDispatch, useSelector } from "react-redux";
+import { AddEmployees } from "../../REdux/Action/EmployeeAction";
 
 function AddEmploy() {
   const [employee, SetEmployee] = useState({
@@ -14,6 +16,7 @@ function AddEmploy() {
   });
   const [Loading, SetLoading] = useState(true);
   const [error, Seterror] = useState({});
+  const dispatch=useDispatch();
 
   const HandleChange = (e) => {
     SetEmployee({
@@ -28,33 +31,9 @@ function AddEmploy() {
       Seterror(checkvalid);
       return;
     }
-    try {
-      const response = await fetch(
-        `https://68afc3ce3b8db1ae9c018aca.mockapi.io/employers`,
-        {
-          method: "Post",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(employee),
-        }
-      );
-      if (!response.ok) {
-        alert("update issue");
-      } else {
-        alert("Employee added successfully!");
-        SetEmployee({
-          name: "",
-          department: "",
-          role: "",
-          status: "",
-          email: "",
-          joindate: "",
-        });
-      }
-    } catch (error) {
-      alert(error);
-    }
+    await dispatch(AddEmployees(employee,SetEmployee));
   };
-  console.log(employee);
+
   return (
     <>
       <h2 style={{ textAlign: "center" }}>EmployeeEdit</h2>
