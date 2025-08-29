@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.head{
+  display: flex;
+  flex-direction: row;
+  align-items: self-start;
+  justify-content:space-evenly;
+}
+.head>a{
+  padding: 10px 8px;
+  background-color: rgb(141, 207, 207);
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  margin: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.head>div{
+  margin: 10px;
+   padding: 10px 8px;
+   background-color: rgb(141, 207, 207);
+   border: none;
+   border-radius:10px;
+}
+input{
+  border: none;
+  padding:4px;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: rgb(144, 150, 155);
+}
+select{
+   border: none;
+  padding:4px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: rgb(144, 150, 155);
+}
+.table {
+  width: 90%;
+  border-spacing: 0;
+  font-size: 0.95rem;
+  border:1px solid rgb(255, 255, 255) ;
+}
+.status {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+button {
+  margin-left: 10px;
+}
+td{
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(226, 226, 226);
+    
+}
+thead{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: rgb(228, 199, 162);
+}
+.edbutton>button{
+  
+  text-decoration: none;
+  color: rgb(86, 118, 146);
+  border:1px solid aliceblue;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius:4px;
+}
+.edbutton>button:hover{
+background-color: rgb(224, 150, 150);
+}
+.edbutton>button>a{
+  text-decoration: none;
+    color: rgb(86, 118, 146);
+}
