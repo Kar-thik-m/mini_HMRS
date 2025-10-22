@@ -2,7 +2,7 @@ import EmployeeList from "./component/employeelist/EmployeeList";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import EmployeeEdit from "./component/Edit/EmployeeEdit";
 import AddEmploy from "./component/AddEmploy/AddEmploy";
-
+/* app  */
 function App() {
   return (
     <>
